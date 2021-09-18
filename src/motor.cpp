@@ -10,7 +10,7 @@ class Motor {
     Motor(int IN1, int IN2, int ENA) {
         in1 = IN1;
         in2 = IN2;
-        digitalWrite(ENA, HIGH);
+        ena = ENA;
     };
 
     void setDirection(Direction direction) {
@@ -27,6 +27,10 @@ class Motor {
                 digitalWrite(in1, LOW);
                 digitalWrite(in2, LOW);
         }
+    }
+
+    void setSpeed(int speed) {
+        analogWrite(ena, speed);
     }
     
 };
