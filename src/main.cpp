@@ -1,15 +1,10 @@
 #include <Arduino.h>
 #include "motor.cpp"
-#include "direction.h"
-
+// #include "direction.h"
 // set these to the real values
-#define MOTOR_PIN_1 D5
-#define MOTOR_PIN_2 D6
-#define MOTOR_PIN_3 D7
-#define MOTOR_PIN_4 D8
-
-#define MOTOR_A_PWM D9
-#define MOTOR_B_PWM D10
+const int ENA = D0;
+const int IN1 = D1;
+const int IN2 = D2;
 
 /*
   TODO
@@ -17,28 +12,26 @@
   Distance Sensor  
   Encoders
 */
+long previousMillis = 0;
+long interval = 1000;
 
+bool goForward = true;
 
+Motor leftMotor(IN1, IN2, ENA);
 
 
 void setup() {
   // outputs
-  pinMode(MOTOR_PIN_1, OUTPUT);
-  pinMode(MOTOR_PIN_2, OUTPUT);
-  pinMode(MOTOR_PIN_3, OUTPUT);
-  pinMode(MOTOR_PIN_4, OUTPUT);
-
-  pinMode(MOTOR_A_PWM, OUTPUT);
-  pinMode(MOTOR_B_PWM, OUTPUT);
-  // inputs
-  /**/
-
-  // Classes
-  Motor leftMotor(D1, D2, D3);
-  Motor rightMotor(D4, D4, D6);
-
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENA, OUTPUT);
+  
 }
 
 void loop() {
+  leftMotor.setDirection(BACKWARD);
+  delay(1000);
+  leftMotor.setDirection(FORWARD);
+  delay(1000);
 
 }

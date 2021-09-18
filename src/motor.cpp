@@ -2,32 +2,31 @@
 #include "direction.h"
 
 class Motor {
-    int PWM;
-    int IN1;
-    int IN2;
-    int prevSpeed;
+    int in1;
+    int in2;
+    int ena;
 
     public:
-    Motor(int InPin1, int InPin2, int PwmPin) {
-        IN1 = InPin1;
-        IN2 = InPin2;
-        PWM = PwmPin;
+    Motor(int IN1, int IN2, int ENA) {
+        in1 = IN1;
+        in2 = IN2;
+        digitalWrite(ENA, HIGH);
     };
-    
+
     void setDirection(Direction direction) {
-        if(direction == FORWARD) {
-            digitalWrite(IN1, HIGH);
-            digitalWrite(IN2, LOW);
-            
-        } else if(direction == BACKWARD) {
-            digitalWrite(IN1, LOW);
-            digitalWrite(IN2, HIGH);
+        switch(direction) {
+            case FORWARD:
+                digitalWrite(in1, HIGH);
+                digitalWrite(in2, LOW);
+                break;
+            case BACKWARD:
+                digitalWrite(in1, LOW);
+                digitalWrite(in2, HIGH);
+                break;
+            default:
+                digitalWrite(in1, LOW);
+                digitalWrite(in2, LOW);
         }
-
-    };
-    void setSpeed(int speed) {
-        int targetSpeed = prevSpeed * .97 + speed * .03;
-
-        analogWrite(PWM, targetSpeed);
-    };
+    }
+    
 };
